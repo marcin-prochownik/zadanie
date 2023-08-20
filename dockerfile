@@ -6,7 +6,6 @@ COPY . .
 
 RUN dotnet restore && dotnet build --no-restore -c Release
 RUN dotnet publish ./src/Subscriptions/Subscriptions.csproj -c Release -o /app/publish
-RUN cp -r ../src/Subscriptions/dist /app/publish/App
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as final
 WORKDIR /app
