@@ -1,3 +1,5 @@
+Subscriptions Service is responsible for managing users' subscriptions. Use swagger for endpoints documentation.
+
 Prerequsities
 =============
 
