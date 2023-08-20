@@ -11,11 +11,7 @@ public class InMemorySubscriptionRepository : ISubscriptionRepository
     {
         if (Subscriptions.TryGetValue(userId, out var subscription))
         {
-            return new Subscription(subscription.UserId)
-            {
-                IsStarted = subscription.IsStarted,
-                StartedAt = subscription.StartedAt
-            };
+            return new Subscription(subscription.UserId, subscription.StartedAt);
         }
 
         return null;
@@ -28,7 +24,6 @@ public class InMemorySubscriptionRepository : ISubscriptionRepository
         Subscriptions.TryAdd(subscription.UserId, new SubscriptionItem
         {
             UserId = subscription.UserId,
-            IsStarted = subscription.IsStarted,
             StartedAt = subscription.StartedAt
         });
     }
@@ -36,7 +31,6 @@ public class InMemorySubscriptionRepository : ISubscriptionRepository
     private class SubscriptionItem
     {
         public string UserId { get; init; } = null!;
-        public bool IsStarted { get; init; }
         public DateTime? StartedAt { get; init; }
     }
 }

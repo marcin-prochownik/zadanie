@@ -3,8 +3,8 @@
 public class Subscription
 {
     public string UserId { get; private set; }
-    public bool IsStarted { get; set; }
-    public DateTime? StartedAt { get; set; }
+    public bool IsStarted => StartedAt != null;
+    public DateTime? StartedAt { get; private set; }
 
     public Subscription(string userId)
     {
@@ -14,12 +14,17 @@ public class Subscription
         UserId = userId;
     }
 
+    public Subscription(string userId, DateTime? startedAt)
+        : this(userId)
+    {
+        StartedAt = startedAt;
+    }
+
     public void Start()
     {
         if (IsStarted)
             return;
         
-        IsStarted = true;
         StartedAt = SystemTime.UtcNow;
     }
 
@@ -28,7 +33,6 @@ public class Subscription
         if (!IsStarted)
             return;
         
-        IsStarted = false;
         StartedAt = null;
     }
 }
