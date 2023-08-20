@@ -20,7 +20,7 @@ public class Subscription
             return;
         
         IsStarted = true;
-        StartedAt = SystemTime.Now;
+        StartedAt = SystemTime.UtcNow;
     }
 
     public void Stop()
