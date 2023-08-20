@@ -2,10 +2,14 @@
 
 namespace Subscriptions.Data;
 
-internal class SubscriptionRepository : ISubscriptionRepository
+public class SubscriptionRepository : ISubscriptionRepository
 {
     public Subscription GetFor(string userId)
     {
         return new Subscription();
+    }
+
+    public void Save(Subscription subscription)
+    {
     }
 }

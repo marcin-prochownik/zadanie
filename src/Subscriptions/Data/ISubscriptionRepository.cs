@@ -2,7 +2,9 @@ using Subscriptions.Models;
 
 namespace Subscriptions.Data;
 
-internal interface ISubscriptionRepository
+public interface ISubscriptionRepository
 {
     Subscription GetFor(string userId);
+    
+    void Save(Subscription subscription);
 }
