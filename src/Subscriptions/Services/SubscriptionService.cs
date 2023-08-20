@@ -3,7 +3,7 @@ using Subscriptions.Models;
 
 namespace Subscriptions.Services;
 
-public class SubscriptionService
+public class SubscriptionService : ISubscriptionService
 {
     private readonly ISubscriptionRepository _subscriptionRepository;
 
