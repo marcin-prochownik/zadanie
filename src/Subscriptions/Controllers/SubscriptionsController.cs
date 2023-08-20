@@ -19,6 +19,12 @@ public class SubscriptionsController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Starts new subscription for an user. If subscription doesn't exist it will be created.
+    /// If subscription is already started, then no changes are made.
+    /// </summary>
+    /// <param name="userId">User which subscription should be started.</param>
+    /// <returns>200 - OK</returns>
     [HttpPost]
     [Route("{userId}/start")]
     public IActionResult Start(string userId)
@@ -29,10 +35,6 @@ public class SubscriptionsController : ControllerBase
 
             return new OkResult();
         }
-        catch (SubscriptionNotFoundException)
-        {
-            return new NotFoundResult();
-        }
         catch (Exception e)
         {
             _logger.LogError(e, "Error while starting subscription for user {userId}", userId);
@@ -41,6 +43,14 @@ public class SubscriptionsController : ControllerBase
         }
     }
     
+    /// <summary>
+    /// Stops user's subscription. If subscription doesn't exist, then 404 is returned.
+    /// </summary>
+    /// <param name="userId">User which subscription should be stopped.</param>
+    /// <returns>
+    /// 200 - OK
+    /// 400 - Subscription doesn't exist
+    /// </returns>
     [HttpPost]
     [Route("{userId}/stop")]
     public IActionResult Stop(string userId)

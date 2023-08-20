@@ -9,3 +9,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "80:80"
+
+  # Dependencies can go here as seperate service. For example service for storage.
+  

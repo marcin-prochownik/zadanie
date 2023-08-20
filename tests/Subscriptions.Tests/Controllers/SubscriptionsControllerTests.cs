@@ -10,17 +10,17 @@ namespace Subscriptions.Tests.Controllers;
 public class SubscriptionsControllerTests
 {
     [Fact]
-    void WhenSubscriptionIsNotFoundExpectNotFoundToBeReturned()
+    void WhenStoppingSubscriptionWhichDoesntExistExpectNotFoundToBeReturned()
     {
         // Arrange
         var logger = Substitute.For<ILogger<SubscriptionsController>>();
         var subscriptionService = Substitute.For<ISubscriptionService>();
-        subscriptionService.When(x => x.StartForUser(Arg.Any<string>()))
+        subscriptionService.When(x => x.StopForUser(Arg.Any<string>()))
             .Do(x => throw new SubscriptionNotFoundException());
         var controller = new SubscriptionsController(subscriptionService, logger);
         
         // Act
-        var result = controller.Start("user-id");
+        var result = controller.Stop("user-id");
         
         // Assert
         Assert.IsType<NotFoundResult>(result);

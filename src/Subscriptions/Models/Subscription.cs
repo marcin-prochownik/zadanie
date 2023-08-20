@@ -8,6 +8,9 @@ public class Subscription
 
     public Subscription(string userId)
     {
+        if (string.IsNullOrWhiteSpace(userId))
+            throw new ArgumentException("Value cannot be null or whitespace.", nameof(userId));
+        
         UserId = userId;
     }
 

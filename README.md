@@ -13,3 +13,8 @@ Development
 ### How to build docker image
 
 * Run `docker build .` in main folder
+
+### How to run service in docker
+
+* Run `docker-compose up --build` in `deployment` folder.
+* Service is available on port 127.0.0.1:80

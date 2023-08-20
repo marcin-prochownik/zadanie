@@ -4,6 +4,18 @@ namespace Subscriptions.Tests.Models;
 
 public class SubscriptionTests
 {
+    [Theory]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void WhenTryingToCreateSubscriptionWithoutUserIdExpectException(string userId)
+    {
+        // Act
+        Subscription Action() => new Subscription(userId);
+        
+        // Assert
+        Assert.Throws<ArgumentException>(Action);
+    }
+    
     [Fact]
     public void WhenCreatingNewSubscriptionExpectSubscriptionToNotBeStarted()
     {
