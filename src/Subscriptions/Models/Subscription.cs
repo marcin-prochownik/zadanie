@@ -3,8 +3,8 @@
 public class Subscription
 {
     public string UserId { get; private set; }
-    public bool IsStarted { get; private set; }
-    public DateTime? StartedAt { get; private set; }
+    public bool IsStarted { get; set; }
+    public DateTime? StartedAt { get; set; }
 
     public Subscription(string userId)
     {

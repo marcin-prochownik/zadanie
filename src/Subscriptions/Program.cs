@@ -4,7 +4,7 @@ using Subscriptions.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add repositories to the container.
-builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddScoped<ISubscriptionRepository, InMemorySubscriptionRepository>();
 
 // Add services to the container.
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
