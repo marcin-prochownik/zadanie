@@ -1,0 +1,9 @@
+
+# Build outputs
+[Oo]bj/
+[Bb]in/
+
+# VS local files
+*.user
+.idea
+.vs
