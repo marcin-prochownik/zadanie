@@ -2,8 +2,14 @@
 
 public class Subscription
 {
+    public string UserId { get; private set; }
     public bool IsStarted { get; private set; }
     public DateTime? StartedAt { get; private set; }
+
+    public Subscription(string userId)
+    {
+        UserId = userId;
+    }
 
     public void Start()
     {

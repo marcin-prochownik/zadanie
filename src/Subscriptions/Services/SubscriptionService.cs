@@ -14,7 +14,7 @@ public class SubscriptionService : ISubscriptionService
 
     public void StartForUser(string userId)
     {
-        var subscription = GetSubscription(userId);
+        var subscription = _subscriptionRepository.GetFor(userId) ?? new Subscription(userId);
         subscription.Start();
         
         _subscriptionRepository.Save(subscription);
@@ -22,19 +22,13 @@ public class SubscriptionService : ISubscriptionService
 
     public void StopForUser(string userId)
     {
-        var subscription = GetSubscription(userId);
-        subscription.Stop();
-        
-        _subscriptionRepository.Save(subscription);
-    }
-
-    private Subscription GetSubscription(string userId)
-    {
         var subscription = _subscriptionRepository.GetFor(userId);
 
         if (subscription == null)
             throw new SubscriptionNotFoundException();
         
-        return subscription;
+        subscription.Stop();
+        
+        _subscriptionRepository.Save(subscription);
     }
 }

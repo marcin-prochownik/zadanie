@@ -6,7 +6,7 @@ public class SubscriptionRepository : ISubscriptionRepository
 {
     public Subscription GetFor(string userId)
     {
-        return new Subscription();
+        return new Subscription(userId);
     }
 
     public void Save(Subscription subscription)

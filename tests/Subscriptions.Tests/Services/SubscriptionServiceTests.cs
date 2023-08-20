@@ -7,7 +7,7 @@ namespace Subscriptions.Tests.Services;
 public class SubscriptionServiceTests
 {
     [Fact]
-    public void WhenStartingSubscriptionWhichDoesntExistsExpectSubscriptionNotFoundException()
+    public void WhenStartingSubscriptionWhichDoesntExistsExpectNewSubscriptionToBeCreated()
     {
         // Arrange
         var subscriptionRepositoryMock = Substitute.For<ISubscriptionRepository>();
@@ -15,10 +15,10 @@ public class SubscriptionServiceTests
         var subscriptionService = new SubscriptionService(subscriptionRepositoryMock);
         
         // Act
-        void Action() => subscriptionService.StartForUser("user-id");
+        subscriptionService.StartForUser("user-id");
 
         // Assert
-        Assert.Throws<SubscriptionNotFoundException>(Action);
+        subscriptionRepositoryMock.Received().Save(Arg.Is<Subscription>(s => s.IsStarted));
     }
     
     [Fact]
@@ -26,7 +26,7 @@ public class SubscriptionServiceTests
     {
         // Arrange
         var subscriptionRepositoryMock = Substitute.For<ISubscriptionRepository>();
-        subscriptionRepositoryMock.GetFor(Arg.Any<string>()).Returns(new Subscription());
+        subscriptionRepositoryMock.GetFor(Arg.Any<string>()).Returns(new Subscription("user-id"));
         var subscriptionService = new SubscriptionService(subscriptionRepositoryMock);
         
         // Act
@@ -55,7 +55,7 @@ public class SubscriptionServiceTests
     public void WhenStoppingSubscriptionExpectSubscriptionToBeStopped()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = new Subscription("user-id");
         subscription.Start();
         
         var subscriptionRepositoryMock = Substitute.For<ISubscriptionRepository>();

@@ -8,7 +8,7 @@ public class SubscriptionTests
     public void WhenCreatingNewSubscriptionExpectSubscriptionToNotBeStarted()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         
         // Act
         var isStarted = subscription.IsStarted;
@@ -21,7 +21,7 @@ public class SubscriptionTests
     public void WhenStartingSubscriptionExpectSubscriptionToBeStarted()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         
         // Act
         subscription.Start();
@@ -37,7 +37,7 @@ public class SubscriptionTests
         using var systemTimeMock = new SystemTimeMock();
         
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         systemTimeMock.Set(new DateTime(2023, 8, 20));
         
         // Act
@@ -53,7 +53,7 @@ public class SubscriptionTests
         using var systemTimeMock = new SystemTimeMock();
         
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         systemTimeMock.Set(new DateTime(2023, 8, 20));
         subscription.Start();
         systemTimeMock.Set(new DateTime(2023, 8, 23));
@@ -69,7 +69,7 @@ public class SubscriptionTests
     public void WhenStoppingSubscriptionExpectSubscriptionToBeStopped()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         subscription.Start();
         
         // Act
@@ -83,7 +83,7 @@ public class SubscriptionTests
     public void WhenStoppingSubscriptionExpectStartedAtToBeReset()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         subscription.Start();
         
         // Act
@@ -97,7 +97,7 @@ public class SubscriptionTests
     public void WhenStoppingSubscriptionWhichIsAlreadyStoppedExpectActionToBeIdempotent()
     {
         // Arrange
-        var subscription = new Subscription();
+        var subscription = CreateSubscription();
         
         // Act
         subscription.Stop();
@@ -105,5 +105,10 @@ public class SubscriptionTests
         // Assert
         Assert.False(subscription.IsStarted);
         Assert.Null(subscription.StartedAt);       
+    }
+    
+    private Subscription CreateSubscription()
+    {
+        return new Subscription("user-id");
     }
 }
